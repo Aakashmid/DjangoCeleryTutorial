@@ -1,0 +1,20 @@
+
+
+// for running celery worker
+celery -A your_project_name worker --loglevel=info
+
+celery -A celeryproject worker --loglevel=info
+
+
+
+----------------------------------------------------
+
+# Windows does not support celery 4.0+, So To Solve this issue :-
+
+We have to install gevent using pip :-
+
+ - pip install gevent
+
+Then to run celery,
+
+ - celery -A <proj_name> worker -l info -P gevent

@@ -6,6 +6,15 @@
     <title>Home - Django Clery </title>
 </head>
 <body>
-    home page
+   <h3 class="">Home Page</h3>
+
+   <hr class="">
+
+   <div class="">
+    {% if result.id %}
+    <p class="">Task Id : {{result.id}}</p>
+    <a href="{% url 'check_result' result.id %}" class="">Check Result </a>
+    {% endif %}
+   </div>
 </body>
 </html>

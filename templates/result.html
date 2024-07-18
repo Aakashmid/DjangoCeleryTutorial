@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Result - Celery Task</title>
+</head>
+<body>
+
+    <div>
+        <h3 class="">Result Page</h3>
+    </div>
+    <div class="">
+
+        {% if result %}
+        <h5>Task Id : {{result.id}}</h5>
+        <h5>Task Id : {{result.task_id}}</h5>
+        <h5>Task state : {{result.state}}</h5>
+        <h5>Task status : {{result.status}}</h5>
+        <h5>Task Result Value : {{result.result}}</h5>
+        {%  endif  %}
+    </div>
+    
+</body>
+</html>
