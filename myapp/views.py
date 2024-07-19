@@ -33,6 +33,12 @@ def home(request):
 def result(request,task_id):
     # retriveing task result by its id 
     result= AsyncResult(task_id)
+    # print('Ready :',result.ready())
+    # print('Successful :',result.successful())
+    # print('Failed :',result.failed())
+
+    # print('Get',result.get())  #    return result value and stop function further processing until it gets its value
+
     return  render(request,'result.html',{'result':result})
     
 

@@ -1,20 +1,48 @@
 
 
 // for running celery worker
-celery -A your_project_name worker --loglevel=info
+    celery -A your_project_name worker --loglevel=info
 
-celery -A celeryproject worker --loglevel=info
+    celery -A celeryproject worker --loglevel=info
 
 
 
 ----------------------------------------------------
 
-# Windows does not support celery 4.0+, So To Solve this issue :-
+##### Windows does not support celery 4.0+, So To Solve this issue(for running celery worker in Windows ) :-
 
-We have to install gevent using pip :-
+        We have to install gevent using pip :-
 
- - pip install gevent
+        - pip install gevent
 
-Then to run celery,
+        Then to run celery,
 
- - celery -A <proj_name> worker -l info -P gevent
+        - celery -A <proj_name> worker -l info -P gevent
+
+
+#### For using django database as a result backend 
+
+
+        Install the https://pypi.org/project/django-celery-results/ library:
+
+        - pip install django-celery-results
+
+
+        Add django_celery_results to INSTALLED_APPS in your Django project’s settings.py:
+
+        "
+        INSTALLED_APPS = (
+            ...,
+            'django_celery_results',
+        )
+        "
+
+
+        Note that there is no dash in the module name, only underscores.
+        // migrate database
+        -  python manage.py migrate django_celery_results
+
+
+        Assuming you are using Django’s settings.py to also configure Celery, add the following settings:
+
+        CELERY_RESULT_BACKEND = 'django-db'

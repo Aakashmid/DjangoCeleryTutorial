@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'myapp'
+    'myapp',
+    'django_celery_results',
 ]
 
 MIDDLEWARE = [
@@ -126,5 +127,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Celery settings
 
 CELERY_BROKER_URL='redis://127.0.0.1:6379/1'
-CELERY_RESULT_BACKEND='redis://127.0.0.1:6379/1'   # FOR VIEWING TASK STATUS , STATE LIKE              
+# CELERY_RESULT_BACKEND='redis://127.0.0.1:6379/1'   # FOR VIEWING TASK STATUS , STATE LIKE         
+CELERY_RESULT_BACKEND = 'django-db'          # using django database as result backend
 CELERY_TIMEZONE='Asia/Kolkata'
+CELERY_RESULT_EXTENDED=True
