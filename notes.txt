@@ -66,6 +66,19 @@ CELERY_BEAT_SCHEDULE = {
 }
 
 
+# Methode 2 for schedule tasks 
+#celery.py
+app.conf.beat_schedule = {
+    # Executes every Monday morning at 7:30 a.m.
+    'schedule_task1': {
+        'task': 'myapp.tasks.schedule_task',
+        'schedule': timedelta(seconds=10),   # run in every 10 seconds
+        # 'schedule': crontab(hour=7, minute=30, day_of_week=1),   # run at monday 7:30
+        'args': (23,)
+    },
+}
+
+
 run this command to run celery beat server 
  
 - celery -A celeryproject beat -l info
@@ -74,4 +87,30 @@ run this command to run celery beat server
 
 ------------------User guide link ----------------------
 https://docs.celeryq.dev/en/stable/userguide/index.html#guide
+
+https://docs.celeryq.dev/en/stable/userguide/periodic-tasks.html#beat-custom-schedulers  // for django-celery-beat
 ----------------------------------------
+
+
+
+
+______________'django-celery-beat' package use __________________
+
+#schedule task using django-celery-beat (django adminsite)
+
+    - pip install django-celery-beat
+
+
+    INSTALLED_APPS = (
+    ...,
+    'django_celery_beat',
+    )
+
+    - python manage.py migrate
+
+    #settins.py
+    CELERY_BEAT_SCHEDULER='django_celery_beat.schedulers:DatabaseScheduler'  # SET SCHEDULER
+
+    //then  after that run celery  beat 
+
+    '''We can do above thing without admin site also (  by using manual coding , search for that if want to do that way)'''

@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'myapp',
     'django_celery_results',
+     'django_celery_beat',
 ]
 
 MIDDLEWARE = [
@@ -133,16 +134,17 @@ CELERY_TIMEZONE='Asia/Kolkata'
 CELERY_RESULT_EXTENDED=True  # for enabling task name and other fields in adminsite
 
 
+CELERY_BEAT_SCHEDULER='django_celery_beat.schedulers:DatabaseScheduler'  # SET SCHEDULER
 
-# Method 1 (for periodic tasks )
+# Method 1 (for periodic tasks using celery beat)
 
-CELERY_BEAT_SCHEDULE = {
-    'clearCache': {
-        'task': 'myapp.tasks.schedule_task',
-        'schedule': 10,  # run in every 10 secondææ
-        'args':(12121, )
-    },
+# CELERY_BEAT_SCHEDULE = {
+#     'clearCache': {
+#         'task': 'myapp.tasks.schedule_task',
+#         'schedule': 10,  # run in every 10 secondææ
+#         'args':(12121, )
+#     },
 
-    # add more eriodic tasks
-}
+#     # add more eriodic tasks
+# }
 
