@@ -130,4 +130,19 @@ CELERY_BROKER_URL='redis://127.0.0.1:6379/1'
 # CELERY_RESULT_BACKEND='redis://127.0.0.1:6379/1'   # FOR VIEWING TASK STATUS , STATE LIKE         
 CELERY_RESULT_BACKEND = 'django-db'          # using django database as result backend
 CELERY_TIMEZONE='Asia/Kolkata'
-CELERY_RESULT_EXTENDED=True
+CELERY_RESULT_EXTENDED=True  # for enabling task name and other fields in adminsite
+
+
+
+# Method 1 (for periodic tasks )
+
+CELERY_BEAT_SCHEDULE = {
+    'clearCache': {
+        'task': 'myapp.tasks.schedule_task',
+        'schedule': 10,  # run in every 10 secondææ
+        'args':(12121, )
+    },
+
+    # add more eriodic tasks
+}
+

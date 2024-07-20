@@ -46,3 +46,32 @@
         Assuming you are using Django’s settings.py to also configure Celery, add the following settings:
 
         CELERY_RESULT_BACKEND = 'django-db'
+
+
+
+//// For runnig periodic tasks
+
+#   Method 1
+
+
+#settings.py
+CELERY_BEAT_SCHEDULE = {
+    'clearCache': { # task name 
+        'task': 'myapp.tasks.schedule_task',  
+        'schedule': 10,  # run in every 10 second 
+        'args':(12121, )
+    },
+
+    # add more periodic tasks
+}
+
+
+run this command to run celery beat server 
+ 
+- celery -A celeryproject beat -l info
+
+
+
+------------------User guide link ----------------------
+https://docs.celeryq.dev/en/stable/userguide/index.html#guide
+----------------------------------------
