@@ -1,8 +1,7 @@
-vevnv/
+venv/
 __pycache__/
 
 migrations/
 db.sqlite3
 celerybeat-schedule
 .vscode/
-.gitkeep
