@@ -3,7 +3,11 @@
 # EmailSender  (Django-Celery project)
 
 
-
+### Used  Technogies   
+- Django 
+- celery
+- TailwindCss 
+- django-allauth (for social authentication)
 
 
 ###  **celery**   setup 
@@ -46,3 +50,20 @@ INSTALLED_APPS = (
 ``` python
 CELERY_RESULT_BACKEND = 'django-db'
 ```
+
+
+### django-allauth setup
+we are using django-allauth for social authentication (like login with google,github etc .)
+> pip install "django-allauth[socialaccount]"     
+
+
+
+
+Now start your server, visit your admin pages (e.g. http://localhost:8000/admin/) and follow these steps:
+- For each OAuth based provider, either add a SocialApp (socialaccount app) containing the required client credentials, or, make sure that these are configured via the SOCIALACCOUNT_PROVIDERS[<provider>]['APP'] setting (see example above).
+
+
+visit  [django-allauth-docs](https://docs.allauth.org/en/latest/installation/quickstart.html) for more details
+
+
+
