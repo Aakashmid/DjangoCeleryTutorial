@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'App',
     'django_celery_results',
 
+    # django-allauth apps
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -146,16 +147,29 @@ AUTHENTICATION_BACKENDS = [
 
 # Provider specific settings
 SOCIALACCOUNT_PROVIDERS = {
-    'google': {
-        # for each social auth provider add its credentials to adminsite or in settings like this 
-        # id specify credentials in adminsite 
-        # 'APP': {
-        #     'client_id': '123',
-        #     'secret': '456',
-        #     'key': ''
-        # }
-    }
+      'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'offline',
+        },
+    },
 }
+
+ACCOUNT_AUTHENTICATION_METHOD = 'email'  # login user my email
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_EMAIL_REQUIRED = True
+
+# password validation 
+AUTH_PASSWORD_VALIDATORS = [
+    {
+        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'OPTIONS': {'min_length': 4},  # Set minimum length to 4 characters
+    },
+    # You can also customize or remove other validators if needed
+]
 
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'

@@ -60,7 +60,46 @@ we are using django-allauth for social authentication (like login with google,gi
 
 
 Now start your server, visit your admin pages (e.g. http://localhost:8000/admin/) and follow these steps:
-- For each OAuth based provider, either add a SocialApp (socialaccount app) containing the required client credentials, or, make sure that these are configured via the SOCIALACCOUNT_PROVIDERS[<provider>]['APP'] setting (see example above).
+- For each OAuth based provider, either add a SocialApp (socialaccount app) containing the required client credentials, or, make sure that these are configured via the SOCIALACCOUNT_PROVIDERS[<provider>]['APP'] in  settings.
+
+- in settings.py add this configuration
+```python
+INSTALLED_APPS = [
+    ...
+    # django-allauth apps
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google', # provider 
+]
+```
+add allauth account middleware to settings middleware    
+
+```python 
+MIDDLEWARE=[
+    ...
+    # account middleware
+    "allauth.account.middleware.AccountMiddleware",
+]
+```
+
+```python 
+# Provider specific settings
+SOCIALACCOUNT_PROVIDERS = {
+      'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'offline',
+        },
+    },
+}
+
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+```
 
 
 visit  [django-allauth-docs](https://docs.allauth.org/en/latest/installation/quickstart.html) for more details
