@@ -1,4 +1,5 @@
 {% load static %}
+{% load socialaccount %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -32,7 +33,7 @@
                 {% endif %}
                 <h3 class="text-3xl text-center text-gray-800">Sign up</h3>
                 <form action="{% url 'account_signup' %}" method="post"
-                    class=" flex flex-col p-3 rounded space-y-4 w-full">
+                    class=" flex flex-col p-3 rounded space-y-3 w-full">
                     {% csrf_token %}
                     <div class="flex flex-col space-y-2">
                         <label for="id_email" class="text-lg">Email</label>
@@ -50,12 +51,19 @@
                             class="rounded-md p-2 border focus:outline-none border-gray-500" required>
                     </div>
                     <div class="">
-                        <button type="submit" class="rounded-md w-full px-3 py-2 bg-gray-900 text-white">Sign
-                            Up</button>
-                    </div>
-                    <div class="">
+                        <button type="submit" class="rounded-md w-full  py-2 bg-gray-900 text-white hover:bg-gray-800">Sign
+                            Up
+                        </button>
+                        <p class="text-sm text-center py-[2px]">Already have an account ?  <a href="{% url 'account_login' %}" class="text-blue-700 font-normal">Login</a></p>
                         <p class="py-2 text-center">Or</p>
-                        <a class="mx-auto" href="{% provider_login_url 'google' %}">Continue with Google</a>
+                    </div>
+                    <div class="shadow-md py-2  hover:bg-gray-200 rounded-md">
+                        <a class="flex items-center justify-center space-x-2" href="{% provider_login_url 'google' %}">
+                            <div class="w-6 h-6"><img src="/media/assets/google.png" alt=""></div>
+                            <p class="text">
+                                Continue with Google
+                            </p>
+                        </a>
                     </div>
                 </form>
             </div>
