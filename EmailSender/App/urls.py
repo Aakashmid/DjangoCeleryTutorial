@@ -5,7 +5,8 @@ from . import views
 
 urlpatterns = [
     path('',views.index,name='Home'),
-    # path('accounts/google/login/',views.direct_google_login,name='google_login'),
-    # path('accounts/google/login/',views.custom_google_login,name='google_login'),
 
+    # authentication related urls
+    # path('accounts/google/login/', views.custom_google_login, name='google_login'),
+    path('accounts/logout/',views.custom_logout),
 ]

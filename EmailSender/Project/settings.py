@@ -22,6 +22,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'django.contrib.admin',
+    'django.contrib.sites',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -36,6 +37,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',  # provider 
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -139,12 +141,15 @@ CELERY_RESULT_EXTENDED=True  # for enabling task name and other fields in admins
 
 
 # Authentication config 
+
+SITE_ID=2
 AUTHENTICATION_BACKENDS = [
     # Needed to login by username in Django admin, regardless of `allauth`
     'django.contrib.auth.backends.ModelBackend',
     # `allauth` specific authentication methods, such as login by email
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
+
 
 
 # Provider specific settings
@@ -162,7 +167,9 @@ SOCIALACCOUNT_PROVIDERS = {
 
 ACCOUNT_AUTHENTICATION_METHOD = 'email'  # login user my email
 ACCOUNT_USERNAME_REQUIRED = False
+# ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_UNIQUE_EMAIL = True
 
 # password validation 
 AUTH_PASSWORD_VALIDATORS = [
@@ -173,5 +180,22 @@ AUTH_PASSWORD_VALIDATORS = [
     # You can also customize or remove other validators if needed
 ]
 
+SOCIALACCOUNT_LOGIN_ON_GET=True  # to skip  the page asking login via 'provider_name
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
+
+
+# for developement 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+
+# for production
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'your_smtp_host'
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+# EMAIL_HOST_USER = 'your_email@example.com'
+# EMAIL_HOST_PASSWORD = 'your_email_password'
+
+
+
