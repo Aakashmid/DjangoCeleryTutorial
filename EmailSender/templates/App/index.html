@@ -4,7 +4,44 @@
 {% block content %}
 <div class="homepage-container">
   <div class="homepage-content  w-full md:w-3/4 xl:w-3/6 mx-auto min-h-[100vh] px-5 py-4 ">
-sdf
+    <!-- alert for mail status when send mail -->
+    {% if mailTaskStatus %}
+    <div class="w-full bg-slate-100 border border-slate-300 py-2 px-4 rounded-lg text-lg flex items-center">
+      <p class="info flex-grow">{% if mailTaskStatus == 'SUCCESS' %} Mail is sent {% else %} mail is sending {% endif %}</p><span class="text-2xl">&times;</span>
+    </div>
+    {% endif %}
+
+    <!-- mail form  -->
+    <div class="send-mail-form w-full py-8">
+      <form action="/" method="post" class="w-full flex flex-col space-y-4">
+        {% csrf_token %}
+        <div class="flex flex-col ">
+          <label for="subject" class="text-lg py-2">Subject</label>
+          <input type="text" name="subject"
+            class="text-lg focus:outline-none border border-gray-400 rounded-md px-3 py-2" id="subject"
+            placeholder="Write subject here .." required>
+        </div>
+        <div class="flex flex-col ">
+          <label for="message" class="text-lg py-2">Message</label>
+          <textarea name="message" class="text-lg focus:outline-none border  h-44 border-gray-400 rounded-md px-3 py-2"
+            id="message" required placeholder="Write your message here...">
+          </textarea>
+        </div>
+        <div class="flex flex-col ">
+          <label for="receciver" class="text-lg py-2">To</label>
+          <input type="email" name="receciver"
+            class="text-lg focus:outline-none border border-gray-400 rounded-md px-3 py-2" id="receciver"
+            placeholder="Write email of receciver" required>
+        </div>
+        <div class="flex flex-col ">
+          <label for="sender" class="text-lg py-2">Sender</label>
+          <input type="email" name="sender"
+            class="text-lg focus:outline-none border border-gray-400 rounded-md px-3 py-2" id="sender"
+            placeholder="Your Email" value=" {% if user.is_authenticated %}{{user.email}}{%else%}{%endif%}" required>
+        </div>
+        <div><button type="submit" class="text-lg px-4 py-2 rounded-md border border-red-200 bg-slate-400 font-medium">Send Mail</button></div>
+      </form>
+    </div>
   </div>
 </div>
 {% endblock content %}

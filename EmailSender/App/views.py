@@ -1,6 +1,9 @@
-from django.shortcuts import render,HttpResponse,redirect
+from django.shortcuts import render,HttpResponse,redirect,HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
+from .tasks import SendMail
+from celery.result import AsyncResult
+
 # Authenticated related views
 from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
 from allauth.socialaccount.providers.oauth2.client import OAuth2Client
@@ -11,8 +14,14 @@ from django.shortcuts import redirect
 
 # @login_required  #   it redirect to login url if user is unauthenticated
 def index(request):
+    if request.method=='POST':
+        subject=request.POST.get('subject')        
+        message=request.POST.get('message')        
+        toEmail=request.POST.get('receiver')        
+        mailTask=SendMail.delay(subject,message,toEmail)
+        mailTaskStatus=AsyncResult(mailTask.id).status
+        return HttpResponseRedirect('/')
     return render(request,'App/index.html')
-
 
 
 
