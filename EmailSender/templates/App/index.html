@@ -5,11 +5,11 @@
 <div class="homepage-container">
   <div class="homepage-content  w-full md:w-3/4 xl:w-3/6 mx-auto min-h-[100vh] px-5 py-4 ">
     <!-- alert for mail status when send mail -->
-    {% if mailTaskStatus %}
+    {% for message in messages %}
     <div class="w-full bg-slate-100 border border-slate-300 py-2 px-4 rounded-lg text-lg flex items-center">
-      <p class="info flex-grow">{% if mailTaskStatus == 'SUCCESS' %} Mail is sent {% else %} mail is sending {% endif %}</p><span class="text-2xl">&times;</span>
+      <p class="info flex-grow">{{message}}</p><span class="text-2xl">&times;</span>
     </div>
-    {% endif %}
+    {% endfor %}
 
     <!-- mail form  -->
     <div class="send-mail-form w-full py-8">

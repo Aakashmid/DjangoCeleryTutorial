@@ -15,7 +15,22 @@
         <div class="login-page-wrapper flex justify-center items-center min-h-[100vh] p-4 xl:p-0">
             <div
                 class="login-box bg-slate-100  w-full sm:w-3/4 md:w-[60%] lg:w-1/2  xl:w-[35vw] 2xl:w-[30vw]  px-4 py-8 lg:px-6 md:shadow-lg rounded-md">
-
+                {% if form.errors %}
+                <div class="error absolute left-1/2 top-10 -translate-x-1/2 ">
+                    {% for field in form %}
+                    {% if field.errors %}
+                    <div class='flex items-center space-x-4 '>
+                        <strong>{{ field.label }}:</strong>
+                        <ul>
+                            {% for error in field.errors %}
+                            <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+                {% endif %}
                 <h3 class="text-3xl text-center text-gray-900 font-medium">Login Here</h3>
                 <form action="{% url 'account_login' %}" method="post"
                     class="flex flex-col mt-4 p-3  space-y-3 w-full">

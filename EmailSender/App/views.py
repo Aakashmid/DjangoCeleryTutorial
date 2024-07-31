@@ -3,7 +3,9 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 from .tasks import SendMail
 from celery.result import AsyncResult
-
+from django.contrib import messages
+from django.core.mail import send_mail
+from django.conf import settings
 # Authenticated related views
 from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
 from allauth.socialaccount.providers.oauth2.client import OAuth2Client
@@ -12,15 +14,44 @@ from django.utils.crypto import get_random_string
 from django.shortcuts import redirect
 # Create your views here.
 
+
+
+def send_test_email():
+    subject = 'Test Email'
+    message = 'This is a test email sent from Django.'
+    from_email = settings.EMAIL_HOST_USER
+    recipient_list = ['aakash.23pcs5102@']  # Replace with the recipient's email address
+
+    send_mail(subject, message, from_email, recipient_list)
+    print('Email is sent',from_email,settings.EMAIL_HOST_PASSWORD)
+
+
 # @login_required  #   it redirect to login url if user is unauthenticated
 def index(request):
     if request.method=='POST':
         subject=request.POST.get('subject')        
         message=request.POST.get('message')        
-        toEmail=request.POST.get('receiver')        
-        mailTask=SendMail.delay(subject,message,toEmail)
-        mailTaskStatus=AsyncResult(mailTask.id).status
+        toEmail=request.POST.get('receiver')
+        fromEmail=settings.EMAIL_HOST_USER
+        # fromEmail=request.user.email
+        # mailTask=SendMail.delay(subject,message,toEmail,fromEmail)
+        # mailTaskStatus=AsyncResult(mailTask.id)
+        # if mailTaskStatus.successful():
+        #     messages.success(request,'mail is sent successfuly ')
+        # else:
+        #     messages.error(request,'Sending mail .. ')
+
+        send_mail(
+        subject=subject,
+        message=message,
+        from_email=fromEmail,
+        recipient_list=[toEmail,],
+        fail_silently=False,
+    )
         return HttpResponseRedirect('/')
+    
+
+    # send_test_email()
     return render(request,'App/index.html')
 
 
