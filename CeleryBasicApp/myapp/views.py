@@ -3,6 +3,7 @@ from celeryproject.celery import add
 from celery.result import AsyncResult
 from .tasks import sub
 from time import sleep
+
 # Create your views here.
 
 
@@ -17,7 +18,7 @@ from time import sleep
 
 # ---------------------------------------
 
-# using apply_async 
+# using apply_async
 # def home(request):
 #     result= add.apply_async(args=[18,12])  # it enqueue task (send task for execution )
 #     print('result1 :',result)
@@ -26,20 +27,19 @@ from time import sleep
 
 # ---------------------------------------
 
-def home(request):
-    result=add.delay(10,20)
-    return  render(request,'index.html',{'result':result})
 
-def result(request,task_id):
-    # retriveing task result by its id 
-    result= AsyncResult(task_id)
+def home(request):
+    result = add.delay(10, 20)
+    return render(request, 'index.html', {'result': result})
+
+
+def result(request, task_id):
+    # retriveing task result by its id
+    result = AsyncResult(task_id)
     # print('Ready :',result.ready())
     # print('Successful :',result.successful())
     # print('Failed :',result.failed())
 
     # print('Get',result.get())  #    return result value and stop function further processing until it gets its value
 
-    return  render(request,'result.html',{'result':result})
-    
-
-
+    return render(request, 'result.html', {'result': result})
