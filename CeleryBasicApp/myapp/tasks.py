@@ -1,9 +1,10 @@
-from celery import shared_task 
+from celery import shared_task
 from time import sleep
 
+
 @shared_task
-def sub(x,y):
-    return x-y
+def sub(x, y):
+    return x - y
 
 
 @shared_task
@@ -17,4 +18,3 @@ def schedule_task(id):
 def clear_redis_cache(key):
     print(key)
     return key
-

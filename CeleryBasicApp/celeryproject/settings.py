@@ -114,7 +114,6 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-
 # Celery settings
 CELERY_BROKER_URL = 'redis://127.0.0.1:6379/1'
 # CELERY_RESULT_BACKEND='redis://127.0.0.1:6379/1'   # FOR VIEWING TASK STATUS , STATE LIKE
@@ -134,5 +133,5 @@ CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'  # SET
 #         'args':(12121, )
 #     },
 
-#     # add more eriodic tasks
+#     # add more periodic tasks
 # }
