@@ -127,4 +127,5 @@ Flower is a real-time monitoring tool for Celery.
 - Task history
 - Worker status
 
+
 Note: You can also implement scheduling without the admin site through manual coding.
